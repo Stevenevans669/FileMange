@@ -1,0 +1,24 @@
+{
+  "name": "vercel-cloud-drive",
+  "version": "0.1.0",
+  "description": "A cloud drive system designed for easy Vercel deployment",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "keywords": [
+    "cloud-drive",
+    "vercel",
+    "nextjs",
+    "file-management"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+
