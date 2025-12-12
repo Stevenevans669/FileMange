@@ -88,7 +88,7 @@ npm run format:fix # 自动格式化
 
 ## 📖 文档
 
-详细文档请查看 [docs](./docs) 目录。
+详细文档请查看 [docs](./docs) 目录，其中 [CI/CD 与 Vercel 部署流程](./docs/architecture/deployment.md) 记录了 GitHub Actions 的 lint/build 流程、Vercel Preview/Production 部署路径以及数据库迁移的推荐实践。
 
 ## 🤝 贡献
 
