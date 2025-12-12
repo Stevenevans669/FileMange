@@ -36,11 +36,28 @@ FileMange/
 
 - [x] 项目初始化
 - [x] 建立 Git 仓库
+- [x] 初始化 Next.js 应用骨架
 - [ ] 需求探索 (BMAD-METHOD)
 - [ ] 架构设计
 - [ ] 核心功能开发
 - [ ] 测试与优化
 - [ ] Vercel 部署
+
+## 🏗️ 本地开发
+
+1. 安装依赖：
+
+```bash
+npm install
+```
+
+2. 启动开发服务器：
+
+```bash
+npm run dev
+```
+
+打开 <http://localhost:3000> 即可查看包含项目简介与文档入口的首屏页面。
 
 ## 📖 文档
 
