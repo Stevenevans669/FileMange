@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Link from 'next/link';
 
 import { AuthForm } from './auth-form';
@@ -15,7 +16,9 @@ export default function LoginPage() {
         <p className="text-sm text-slate-300">使用邮箱和密码登录以访问你的云盘空间。</p>
       </div>
 
-      <AuthForm mode="login" />
+      <Suspense fallback={<div className="text-sm text-slate-300">加载中…</div>}>
+        <AuthForm mode="login" />
+      </Suspense>
 
       <p className="text-center text-sm text-slate-300">
         还没有账号？{' '}

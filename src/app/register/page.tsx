@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Link from 'next/link';
 
 import { AuthForm } from '../login/auth-form';
@@ -15,7 +16,9 @@ export default function RegisterPage() {
         <p className="text-sm text-slate-300">填写邮箱和至少 8 位密码，我们会为你创建一个新账户。</p>
       </div>
 
-      <AuthForm mode="register" />
+      <Suspense fallback={<div className="text-sm text-slate-300">加载中…</div>}>
+        <AuthForm mode="register" />
+      </Suspense>
 
       <p className="text-center text-sm text-slate-300">
         已有账号？{' '}

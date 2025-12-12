@@ -1,4 +1,4 @@
-import { cookies, type ReadonlyRequestCookies } from 'next/headers';
+import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { and, eq, gt } from 'drizzle-orm';
 import { randomBytes, scryptSync, timingSafeEqual } from 'node:crypto';
@@ -43,7 +43,7 @@ async function createSession(userId: string) {
   return { token, expiresAt };
 }
 
-export async function getSessionFromCookies(cookieStore?: ReadonlyRequestCookies) {
+export async function getSessionFromCookies(cookieStore?: ReturnType<typeof cookies>) {
   const store = cookieStore ?? cookies();
   const token = store.get(SESSION_COOKIE_NAME)?.value;
   if (!token) return null;
@@ -67,7 +67,7 @@ export async function getSessionFromCookies(cookieStore?: ReadonlyRequestCookies
   } satisfies SessionContext;
 }
 
-export async function signOut(cookieStore?: ReadonlyRequestCookies) {
+export async function signOut(cookieStore?: ReturnType<typeof cookies>) {
   const store = cookieStore ?? cookies();
   const token = store.get(SESSION_COOKIE_NAME)?.value;
   if (!token) return;
