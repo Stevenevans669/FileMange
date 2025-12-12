@@ -2,81 +2,114 @@ import Link from 'next/link';
 
 const roadmapItems = [
   {
-    title: '需求探索 (BMAD Phase 1)',
-    items: ['用户故事细化', '用例/优先级评审', '开放问题收敛'],
+    title: 'App Router-first foundation',
+    summary: 'Ready-to-extend routing, layouts, and metadata with sensible defaults.',
+    items: [
+      'TypeScript strict mode',
+      'App directory with shared layout',
+      'MDX-ready content targets',
+    ],
   },
   {
-    title: '架构设计 (BMAD Phase 2)',
-    items: ['技术栈确认', '系统架构草图', '安全/合规基线'],
+    title: 'UI + DX tooling',
+    summary: 'Tailwind + Prettier + ESLint harmonized for reliable, readable UI code.',
+    items: [
+      'Tailwind CSS configured for ./src/**/*',
+      'Prettier with Tailwind plugin',
+      'ESLint on top of core-web-vitals',
+    ],
   },
   {
-    title: 'MVP 开发 (BMAD Phase 3)',
-    items: ['上传/下载最小闭环', '基本账号体系', 'CI/CD 与质量门禁'],
+    title: 'Runtime + environment hygiene',
+    summary: 'Clear separation of public vs. server-only variables with examples.',
+    items: [
+      '.env.example with public/server scopes',
+      'Node.js 18+ baseline',
+      'Next.js scripts for dev/build/lint',
+    ],
   },
 ];
 
 export default function HomePage() {
   return (
-    <main>
-      <div className="container">
-        <header>
-          <div>
-            <span className="badge">Vercel Cloud Drive</span>
-            <h1>打造为 Vercel 优化的现代化网盘</h1>
-            <p>
-              轻量、可扩展、以 BMAD 方法论驱动的文件存储方案，当前处于需求探索阶段。
+    <section className="space-y-6">
+      <div className="section-card relative overflow-hidden">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/60 to-transparent" />
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
+          <div className="flex-1 space-y-3">
+            <p className="text-sm uppercase tracking-[0.2em] text-blue-200/70">App Scaffold</p>
+            <h2 className="text-3xl font-semibold text-white lg:text-4xl">
+              Next.js + Tailwind starter
+            </h2>
+            <p className="max-w-2xl text-base text-slate-200/90">
+              Opinionated App Router scaffold with TypeScript, Tailwind, ESLint, and Prettier wired
+              together. The layout is ready for marketing pages, docs, and authenticated flows
+              without extra ceremony.
+            </p>
+            <div className="flex flex-wrap gap-3 text-sm text-blue-100">
+              <span className="rounded-full border border-blue-400/40 bg-blue-500/10 px-3 py-1">
+                Next.js 14 App Router
+              </span>
+              <span className="rounded-full border border-indigo-400/40 bg-indigo-500/10 px-3 py-1">
+                TypeScript strict
+              </span>
+              <span className="rounded-full border border-emerald-400/40 bg-emerald-500/10 px-3 py-1">
+                Tailwind CSS
+              </span>
+              <span className="rounded-full border border-amber-400/40 bg-amber-500/10 px-3 py-1">
+                ESLint &amp; Prettier
+              </span>
+            </div>
+            <p className="text-sm text-slate-300">
+              Need docs? Jump into{' '}
+              <Link href="/docs" className="font-semibold">
+                /docs
+              </Link>{' '}
+              for product context, or start building in
+              <span className="code-inline">src/app</span>.
             </p>
           </div>
-          <Link href="/docs" prefetch={false} aria-label="项目文档入口">
-            查看文档
-          </Link>
-        </header>
-
-        <section className="section-grid">
-          <div className="card">
-            <h3>为什么选择这个项目？</h3>
-            <p>
-              针对 Vercel 部署优化，提供 App Router 架构、TypeScript 严格模式，以及未来与
-              Vercel 原生存储的无缝集成能力。
-            </p>
-          </div>
-
-          <div className="card">
-            <h3>当前阶段</h3>
-            <p>
-              需求探索 & 架构预研。你可以查看 <Link href="/docs" prefetch={false}>docs</Link>{' '}
-              目录了解用户故事、API 构想与架构草图。
-            </p>
-          </div>
-
-          <div className="card">
-            <h3>开发规范</h3>
-            <ul className="list">
-              <li>TypeScript + Next.js 14 App Router</li>
-              <li>遵循 ESLint / Prettier，组件使用函数式 + Hooks</li>
-              <li>Git 提交遵循 <code>type(scope): description</code> 约定</li>
+          <div className="flex w-full max-w-sm flex-col gap-3 rounded-2xl border border-slate-800/60 bg-slate-900/70 p-4 shadow-inner shadow-blue-500/5">
+            <h3 className="text-lg font-semibold text-white">What&apos;s configured</h3>
+            <ul className="space-y-2 text-sm text-slate-200">
+              <li>
+                <span className="code-inline">tailwind.config.ts</span> scoped to{' '}
+                <span className="code-inline">src/**/*</span>
+              </li>
+              <li>
+                <span className="code-inline">.eslintrc.json</span> +{' '}
+                <span className="code-inline">.prettierrc</span> with Tailwind plugin
+              </li>
+              <li>
+                <span className="code-inline">.env.example</span> showing public vs. server-only
+                variables
+              </li>
+              <li>
+                Formatting scripts: <span className="code-inline">npm run format[:fix]</span>
+              </li>
             </ul>
           </div>
-        </section>
-
-        <section className="section-grid">
-          {roadmapItems.map((item) => (
-            <div className="card" key={item.title}>
-              <h3>{item.title}</h3>
-              <ul className="list">
-                {item.items.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </section>
-
-        <div className="footer">
-          <span>下一步：</span>
-          <strong>完成需求评审，敲定 MVP 范围并启动开发冲刺。</strong>
         </div>
       </div>
-    </main>
+
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {roadmapItems.map((item) => (
+          <article key={item.title} className="section-card space-y-3">
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-blue-200/60">{item.title}</p>
+              <h3 className="text-xl font-semibold text-white">{item.summary}</h3>
+            </div>
+            <ul className="space-y-2 text-sm text-slate-200/90">
+              {item.items.map((point) => (
+                <li key={point} className="flex items-start gap-2">
+                  <span className="mt-1 h-2 w-2 rounded-full bg-emerald-400" aria-hidden />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }
