@@ -3,15 +3,24 @@ import { drizzle } from 'drizzle-orm/neon-http';
 
 import * as schema from './schema';
 
-if (!process.env.DATABASE_URL) {
-  throw new Error('DATABASE_URL is not set');
-}
-
 // Cache pooled connections in serverless/edge runtimes.
 neonConfig.fetchConnectionCache = true;
 
-const sql = neon(process.env.DATABASE_URL);
+let cachedDb: ReturnType<typeof drizzle<typeof schema>> | null = null;
 
-export const db = drizzle({ client: sql, schema });
-export type Database = typeof db;
+export function getDb() {
+  const databaseUrl = process.env.DATABASE_URL;
+  if (!databaseUrl) {
+    throw new Error('DATABASE_URL is not set');
+  }
+
+  if (!cachedDb) {
+    const sql = neon(databaseUrl);
+    cachedDb = drizzle({ client: sql, schema });
+  }
+
+  return cachedDb;
+}
+
+export type Database = ReturnType<typeof getDb>;
 export { schema };

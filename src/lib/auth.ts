@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { and, eq, gt } from 'drizzle-orm';
 import { randomBytes, scryptSync, timingSafeEqual } from 'node:crypto';
 
-import { db, sessions, users } from './db';
+import { getDb, sessions, users } from './db';
 
 const SESSION_COOKIE_NAME = 'vcd_session';
 const SESSION_TTL_DAYS = 7;
@@ -33,6 +33,7 @@ function verifyPassword(password: string, hashedValue: string): boolean {
 }
 
 async function createSession(userId: string) {
+  const db = getDb();
   const token = randomBytes(32).toString('hex');
   const expiresAt = new Date(Date.now() + SESSION_TTL_DAYS * 24 * 60 * 60 * 1000);
   await db.insert(sessions).values({
@@ -48,6 +49,7 @@ export async function getSessionFromCookies(cookieStore?: ReturnType<typeof cook
   const token = store.get(SESSION_COOKIE_NAME)?.value;
   if (!token) return null;
 
+  const db = getDb();
   const record = await db.query.sessions.findFirst({
     where: and(eq(sessions.sessionToken, token), gt(sessions.expiresAt, new Date())),
     with: { user: true },
@@ -72,6 +74,7 @@ export async function signOut(cookieStore?: ReturnType<typeof cookies>) {
   const token = store.get(SESSION_COOKIE_NAME)?.value;
   if (!token) return;
 
+  const db = getDb();
   await db.delete(sessions).where(eq(sessions.sessionToken, token));
 }
 
@@ -97,6 +100,7 @@ export async function handleRegistration(payload: {
     return NextResponse.json({ error: '邮箱和至少 8 位密码必填。' }, { status: 400 });
   }
 
+  const db = getDb();
   const existingUser = await db.query.users.findFirst({ where: eq(users.email, email) });
   if (existingUser) {
     return NextResponse.json({ error: '该邮箱已注册。' }, { status: 409 });
@@ -126,6 +130,7 @@ export async function handleLogin(payload: { email: string; password: string }) 
     return NextResponse.json({ error: '邮箱和密码必填。' }, { status: 400 });
   }
 
+  const db = getDb();
   const user = await db.query.users.findFirst({ where: eq(users.email, email) });
   if (!user || !verifyPassword(payload.password, user.passwordHash) || !user.isActive) {
     return NextResponse.json({ error: '邮箱或密码错误。' }, { status: 401 });
