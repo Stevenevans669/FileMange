@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --check .",
-    "format:fix": "prettier --write ."
+    "format:fix": "prettier --write .",
+    "db:generate": "drizzle-kit generate:pg",
+    "db:push": "drizzle-kit push:pg"
   },
   "keywords": [
     "cloud-drive",
@@ -23,8 +25,10 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
     "@types/node": "^25.0.1",
     "@types/react": "^19.2.7",
+    "drizzle-orm": "^0.45.1",
     "next": "^14.2.35",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -32,6 +36,8 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
+    "dotenv": "^17.2.3",
+    "drizzle-kit": "^0.31.8",
     "eslint": "^8.57.1",
     "eslint-config-next": "^14.2.35",
     "eslint-config-prettier": "^9.1.0",
