@@ -72,6 +72,16 @@ npm run format     # 仅检查格式（Prettier + Tailwind 插件）
 npm run format:fix # 自动格式化
 ```
 
+4. 数据库（Neon + Drizzle）：
+
+```bash
+# 使用 Neon 连接串生成 SQL 迁移
+DATABASE_URL="<neon_connection_string>" npm run db:generate
+
+# 将迁移推送到数据库（需要具备连接权限）
+DATABASE_URL="<neon_connection_string>" npm run db:push
+```
+
 ## 🌱 环境变量约定
 
 示例文件位于 `.env.example`，包含公开与服务端变量的划分：
