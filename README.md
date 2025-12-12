@@ -26,7 +26,7 @@ FileMange/
 │   ├── architecture/        # 架构设计
 │   └── api/                 # API 文档
 ├── src/                     # 源代码（待创建）
-├── public/                  # 静态资源（待创建）
+├── public/                  # 静态资源和构建产物出口（已创建，供 Vercel 识别）
 ├── .claude.md               # AI 助手指南
 ├── package.json
 └── README.md
@@ -42,6 +42,8 @@ FileMange/
 - [ ] 核心功能开发
 - [ ] 测试与优化
 - [ ] Vercel 部署
+
+> ℹ️ **Vercel 部署提示**：Vercel 项目当前的输出目录配置指向 `public/`。仓库已预先创建该目录（含占位说明），确保 `npm run build` 后平台能找到输出路径。如需调整输出目录，请同步更新 Vercel 项目设置或 `vercel.json`。
 
 ## 🏗️ 本地开发
 
