@@ -1,5 +1,8 @@
 import Link from 'next/link';
 
+import { getSessionFromCookies } from '@/lib/auth';
+import { SignOutButton } from './sign-out-button';
+
 const roadmapItems = [
   {
     title: 'App Router-first foundation',
@@ -30,9 +33,30 @@ const roadmapItems = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const session = await getSessionFromCookies();
+
   return (
     <section className="space-y-6">
+      <div className="section-card flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <p className="text-xs uppercase tracking-[0.2em] text-emerald-200/70">Private by default</p>
+          <h2 className="text-xl font-semibold text-white">安全访问已开启</h2>
+          <p className="text-sm text-slate-300">
+            {session ? `已登录：${session.user.email}` : '未登录状态将被自动重定向至登录页。'}
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center gap-3 text-sm text-slate-200">
+          <Link
+            href="/docs"
+            className="rounded-full border border-slate-700/70 px-3 py-1.5 text-slate-100 transition hover:border-blue-400 hover:text-white"
+          >
+            查看文档
+          </Link>
+          <SignOutButton />
+        </div>
+      </div>
+
       <div className="section-card relative overflow-hidden">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/60 to-transparent" />
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
