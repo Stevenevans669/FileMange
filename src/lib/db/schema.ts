@@ -56,8 +56,7 @@ export const folders = pgTable('folders', {
   foldersParentIdForeignKey: foreignKey({
     columns: [table.parentId],
     foreignColumns: [table.id],
-    onDelete: 'set null',
-  }),
+  }).onDelete('set null'),
 }));
 
 export const files = pgTable('files', {
