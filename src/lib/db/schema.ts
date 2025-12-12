@@ -1,6 +1,7 @@
 import { relations } from 'drizzle-orm';
 import {
   boolean,
+  foreignKey,
   integer,
   jsonb,
   pgEnum,
@@ -47,11 +48,17 @@ export const folders = pgTable('folders', {
   userId: uuid('user_id')
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
-  parentId: uuid('parent_id').references(() => folders.id, { onDelete: 'set null' }),
+  parentId: uuid('parent_id'),
   name: varchar('name', { length: 255 }).notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-});
+}, (table) => ({
+  foldersParentIdForeignKey: foreignKey({
+    columns: [table.parentId],
+    foreignColumns: [table.id],
+    onDelete: 'set null',
+  }),
+}));
 
 export const files = pgTable('files', {
   id: uuid('id').defaultRandom().primaryKey(),
